@@ -1,6 +1,6 @@
 {
   "name": "@outdoorsyco/crowdin-api",
-  "version": "2.1.1",
+  "version": "2.1.2",
   "description": "API client for Crowdin",
   "repository": {
     "type": "git",
