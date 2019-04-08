@@ -216,6 +216,14 @@ module.exports = {
     return getApiCall('project/' + projectName + '/export');
   },
   /**
+   * Get the status of translations export.
+   * @param projectName {String} Project identifier.
+   * @param branch {String} The name of related version branch (Versions Management).
+   */
+  translationExportStatus(projectName, branch = '') {
+    return getApiCall(`project/${projectName}/export-status`, { branch });
+  },
+  /**
    * Edit Crowdin project
    * @param projectName {String} Name of the project to change
    * @param params {Object} New parameters for the project.
