@@ -41,15 +41,14 @@ function handleRequest(request) {
     });
 }
 
-function getApiCall(apiUrl) {
+function getApiCall(apiUrl, passedParams = {}) {
   validateKey();
 
   var url = baseUrl + '/api/' + apiUrl;
-  var params = {
+  var params = Object.assign({}, {
     json: true,
     key: apiKey
-  };
-
+  }, passedParams);
   return handleRequest(request.get({
     url: url,
     qs: params
@@ -212,16 +211,17 @@ module.exports = {
    * restriction for organization plans). Also API call will be ignored if there were no changes in the project since previous export.
    * You can see whether ZIP archive with latest translations was actually build by status attribute ('built' or 'skipped') returned in response.
    */
-  exportTranslations: function (projectName) {
-    return getApiCall('project/' + projectName + '/export');
+  exportTranslations: function (projectName, params = {}) {
+    return getApiCall('project/' + projectName + '/export', params);
   },
   /**
    * Get the status of translations export.
    * @param projectName {String} Project identifier.
    * @param branch {String} The name of related version branch (Versions Management).
    */
-  translationExportStatus(projectName, branch = '') {
-    return getApiCall(`project/${projectName}/export-status`, { branch });
+  translationExportStatus(projectName, branch) {
+    const options = branch ? { branch } : null;
+    return getApiCall(`project/${projectName}/export-status`, options);
   },
   /**
    * Edit Crowdin project
